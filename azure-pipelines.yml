@@ -1,10 +1,5 @@
 # PHP
-- task: BrowserStackConfig@0
-  inputs:
-    BrowserStackServiceEndPoint: 'Browserstack-service'
-- task: BrowserStackResults@1
-  inputs:
-    browserstackProduct: 'automate'
+
 # Test and package your PHP project.
 # Add steps that run tests, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/php
@@ -28,8 +23,15 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
+- task: BrowserStackConfig@0
+  inputs:
+    BrowserStackServiceEndPoint: 'Browserstack-service'
+- task: BrowserStackResults@1
+  inputs:
+    browserstackProduct: 'automate'
+
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
 
--script: composer single
+- script: composer single
   displayName: 'Run tests on BrowserStack'
